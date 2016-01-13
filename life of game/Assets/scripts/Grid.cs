@@ -4,16 +4,14 @@ using System.Collections;
 
 public class Grid : MonoBehaviour
 {
-    private bool[,] oldGrid = new bool[20, 20];
-    private bool[,] newGrid = new bool[20, 20];
-
+    private bool[,] grid = new bool[20,20];
     void Start()
     {
-        for(int i = 0; i < oldGrid.GetLength(0); i++)
+        for(int i = 0; i < grid.GetLength(0); i++)
         {
-            for (int j = 0; j < oldGrid.GetLength(1); j++)
+            for (int j = 0; j < grid.GetLength(1); j++)
             {
-                oldGrid[i, j] = false;
+                grid[i, j] = false;
             }
         }
     }
@@ -23,29 +21,19 @@ public class Grid : MonoBehaviour
 
     }
 
-    public void setCell(int x, int y, bool state)
-    {
-        newGrid[x, y] = state;
-    }
-
-    public void updateGrid()
-    {
-        oldGrid = newGrid;
-    }
-
     /// <summary> this returns the neighbouring cells of target cell </summary>
     public bool[] GetNeighbouringCells(int x, int y)
     {
-        bool[] neighbouring = new bool[8];
+        bool[] neighbouring = new bool[4];
 
-        neighbouring[0] = oldGrid[x, y - 1];
-        neighbouring[1] = oldGrid[x + 1, y - 1];
-        neighbouring[2] = oldGrid[x + 1, y];
-        neighbouring[3] = oldGrid[x + 1, y + 1];
-        neighbouring[4] = oldGrid[x, y + 1];
-        neighbouring[5] = oldGrid[x - 1, y + 1];
-        neighbouring[6] = oldGrid[x - 1, y];
-        neighbouring[7] = oldGrid[x - 1, y - 1];
+        neighbouring[0] = grid[x, y - 1];
+        neighbouring[1] = grid[x + 1, y - 1];
+        neighbouring[2] = grid[x + 1, y];
+        neighbouring[3] = grid[x + 1, y + 1];
+        neighbouring[4] = grid[x, y + 1];
+        neighbouring[5] = grid[x - 1, y + 1];
+        neighbouring[6] = grid[x - 1, y];
+        neighbouring[7] = grid[x - 1, y - 1];
 
         return neighbouring;
     }
@@ -53,11 +41,11 @@ public class Grid : MonoBehaviour
     public List<Vector2> GetAllActiveCellPositions()
     {
         List<Vector2> activeCells = new List<Vector2>();
-        for (int i = 0; i < oldGrid.GetLength(0); i++)
+        for (int i = 0; i < grid.GetLength(0); i++)
         {
-            for (int j = 0; j < oldGrid.GetLength(1); j++)
+            for (int j = 0; j < grid.GetLength(1); j++)
             {
-                if(oldGrid[i,j] == true)
+                if(grid[i,j] == true)
                 {
                     activeCells.Add(new Vector2(i, j));
                 }
