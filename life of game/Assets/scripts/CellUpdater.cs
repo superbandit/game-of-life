@@ -16,6 +16,31 @@ public class CellUpdater : MonoBehaviour
 	
 	void Update ()
     {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            
+            grid.setCell(10, 6, true);
+            grid.setCell(10, 7, true);
+            grid.setCell(10, 8, true);
+            grid.setCell(10, 9, true);
+            grid.setCell(10, 10, true);
+            grid.setCell(10, 11, true);
+            /*
+            grid.setCell(4, 4, true);
+            grid.setCell(4, 5, true);
+            grid.setCell(5, 4, true);
+            grid.setCell(5, 5, true);
+            grid.setCell(6, 4, true);
+            grid.setCell(6, 5, true);
+            */
+            /*for(int i = 1; i < 19; i++)
+            {
+                for (int j = 1; j < 19; j++)
+                {
+                    grid.setCell(i, j, true);
+                }
+            }*/
+        }
 	    if (gameStarted == true)
         {
             if (updateTimer > 0)

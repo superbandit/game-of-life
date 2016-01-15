@@ -7,6 +7,8 @@ public class Grid : MonoBehaviour
     private bool[,] oldGrid = new bool[20, 20];
     private bool[,] newGrid = new bool[20, 20];
 
+    private GridRenderer Renderer;
+
     void Start()
     {
         for(int i = 0; i < oldGrid.GetLength(0); i++)
@@ -16,6 +18,8 @@ public class Grid : MonoBehaviour
                 oldGrid[i, j] = false;
             }
         }
+        Renderer = this.GetComponent<GridRenderer>();
+        Renderer.CreateBoard(oldGrid.GetLength(0), oldGrid.GetLength(1));
     }
 
     void Update()
@@ -28,9 +32,28 @@ public class Grid : MonoBehaviour
         newGrid[x, y] = state;
     }
 
+    public bool getCell(int x, int y)
+    {
+        return oldGrid[x, y];
+    }
+
     public void updateGrid()
     {
-        oldGrid = newGrid;
+        for (int x = 0; x < oldGrid.GetLength(0); x++)
+        {
+            for (int y = 0; y < oldGrid.GetLength(1); y++)
+            {
+                oldGrid[x, y] = newGrid[x, y];
+            }
+        }
+                
+        for (int x = 0; x < oldGrid.GetLength(0); x++)
+        {
+            for (int y = 0; y < oldGrid.GetLength(1); y++)
+            {
+                Renderer.UpdateCell(x, y, oldGrid[x, y]);
+            }
+        }
     }
 
     /// <summary> this returns the neighbouring cells of target cell </summary>
@@ -38,14 +61,14 @@ public class Grid : MonoBehaviour
     {
         bool[] neighbouring = new bool[8];
 
-        neighbouring[0] = oldGrid[x, y - 1];
-        neighbouring[1] = oldGrid[x + 1, y - 1];
-        neighbouring[2] = oldGrid[x + 1, y];
-        neighbouring[3] = oldGrid[x + 1, y + 1];
-        neighbouring[4] = oldGrid[x, y + 1];
+        neighbouring[0] = oldGrid[x - 1, y - 1];
+        neighbouring[1] = oldGrid[x, y - 1];
+        neighbouring[2] = oldGrid[x + 1, y - 1];
+        neighbouring[3] = oldGrid[x - 1, y];
+        neighbouring[4] = oldGrid[x + 1, y];
         neighbouring[5] = oldGrid[x - 1, y + 1];
-        neighbouring[6] = oldGrid[x - 1, y];
-        neighbouring[7] = oldGrid[x - 1, y - 1];
+        neighbouring[6] = oldGrid[x, y + 1];
+        neighbouring[7] = oldGrid[x + 1, y + 1];
 
         return neighbouring;
     }
